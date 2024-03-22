@@ -1,5 +1,8 @@
 console.log("Hola, estoy aquí, soy el frontend");
 
+
+
+
 document.addEventListener("click", (e) => {
     if (e.target.dataset.short) {
         const url = `${window.location.origin}/${e.target.dataset.short}`;

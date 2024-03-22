@@ -15,12 +15,14 @@ const urlValidar = (req, res, next) => {
         throw new Error("no válida 😲");
     } catch (error) {
         if (error.message === "Invalid URL") {
-            req.flash("mensajes", [{ msg: "url no válida" }]);
+            req.flash("mensajes", [{ msg: "url no valida" }]);
         } else {
             req.flash("mensajes", [{ msg: error.message }]);
         }
         return res.redirect("/");
     }
 };
+
+
 
 module.exports = urlValidar;

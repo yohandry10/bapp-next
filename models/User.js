@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { Schema } = mongoose;
 
+
+
+
+
 const userSchema = new Schema({
     userName: {
         type: String,

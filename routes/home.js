@@ -11,10 +11,14 @@ const {
     formPerfil,
     editarFotoPerfil,
 } = require("../controllers/perfilController");
+
 const urlValidar = require("../middlewares/urlValida");
+
 const verficarUser = require("../middlewares/verficarUser");
 
+
 const router = express.Router();
+
 
 router.get("/", verficarUser, leerUrls);
 router.post("/", verficarUser, urlValidar, agregarUrl);
