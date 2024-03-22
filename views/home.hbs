@@ -4,4 +4,12 @@
 
 {{#each urls }}
     {{> Card item=this}}
-{{/each}}
+{{/each}} 
+
+<!-- Formulario de carga de imágenes -->
+<form id="imageUploadForm" enctype="multipart/form-data">
+  <input type="file" name="image" id="imageInput">
+  <button type="submit">Subir Imagen</button>
+</form>
+
+<div id="imageContainer"></div>

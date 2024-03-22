@@ -28,24 +28,22 @@ const registerUser = async (req, res) => {
         user = new User({ userName, email, password, tokenConfirm: nanoid() });
         await user.save();
 
-        // enviar correo electrónico con la confirmación de la cuenta
-        const transport = nodemailer.createTransport({
-            host: "mail.ignaciogutierrez.cl",
-            port: 465,
-            secure: true,
+        // enviar correo electrónico con la confirmación de la cuenta   
+        var transport = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
             auth: {
-                user: process.env.USERMAIL,
-                pass: process.env.PASSEMAIL,
-            },
+                user: "d25303e8b7b6a5", 
+                pass: "84205280bb309a" 
+            }
         });
 
         await transport.sendMail({
-            from: '"🙌" twitch@ignaciogutierrez.cl', // sender address
+            from: 'estudiante del bootcampg16', // sender address
             to: user.email, // list of receivers
             subject: "Verifica tu cuenta de correo", // Subject line
-            html: `<a href="${
-                process.env.PATHHEROKU || "http://localhost:5000"
-            }auth/confirmar/${user.tokenConfirm}">Verifica tu cuenta aquí</a>`, // html body
+            html: `<a href="${process.env.PATHHEROKU || "http://localhost:5000"
+                }auth/confirmar/${user.tokenConfirm}">Verifica tu cuenta aquí</a>`, // html body
         });
 
         req.flash("mensajes", [
@@ -127,3 +125,4 @@ module.exports = {
     loginUser,
     cerrarSesion,
 };
+

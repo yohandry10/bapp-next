@@ -1,0 +1,132 @@
+swagger: "2.0"
+info:
+  description: Permite realizar operaciones CRUD sobre usuarios, además de iniciar y cerrar sesión."
+  version: "1.0.0"
+  title: "API de BOOTCAMPG16"
+host: "localhost:5000"
+basePath: "/"
+tags:
+- name: "usuario"
+  description: "Operaciones sobre Usuarios"
+- name: "sesion"
+  description: "Operaciones de Sesión"
+
+paths:
+  /auth/login:
+    post:
+      tags:
+      - "sesion"
+      summary: "Iniciar sesión"
+      description: "Permite a un usuario iniciar sesión en la aplicación."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Credenciales de usuario para iniciar sesión"
+        required: true
+        schema:
+          $ref: "#/definitions/Login"
+      responses:
+        200:
+          description: "Inicio de sesión exitoso"
+          schema:
+            $ref: '#/definitions/UsuarioRespuesta'
+        400:
+          description: "Solicitud incorrecta debido a datos de entrada inválidos"
+
+  /auth/logout:
+    post:
+      tags:
+      - "sesion"
+      summary: "Cerrar sesión"
+      description: "Permite a un usuario cerrar sesión en la aplicación."
+      responses:
+        200:
+          description: "Cierre de sesión exitoso"
+
+  /usuarios:
+    get:
+      tags:
+      - "usuario"
+      summary: "Obtener todos los usuarios"
+      description: "Devuelve una lista de todos los usuarios registrados en la aplicación."
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Lista de usuarios"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Usuario"
+
+    post:
+      tags:
+      - "usuario"
+      summary: "Crear un nuevo usuario"
+      description: "Registra un nuevo usuario en la aplicación."
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "usuario"
+        description: "Objeto de usuario para crear un nuevo usuario"
+        required: true
+        schema:
+          $ref: "#/definitions/UsuarioNuevo"
+      responses:
+        201:
+          description: "Usuario creado exitosamente"
+          schema:
+            $ref: '#/definitions/UsuarioRespuesta'
+        400:
+          description: "Solicitud incorrecta debido a datos de entrada inválidos"
+
+definitions:
+  Login:
+    type: "object"
+    required:
+    - "email"
+    - "password"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+
+  Usuario:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      nombre:
+        type: "string"
+      email:
+        type: "string"
+
+  UsuarioNuevo:
+    type: "object"
+    required:
+    - "nombre"
+    - "email"
+    - "password"
+    properties:
+      nombre:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"
+
+  UsuarioRespuesta:
+    type: "object"
+    properties:
+      mensaje:
+        type: "string"
+      usuario:
+        $ref: "#/definitions/Usuario"
