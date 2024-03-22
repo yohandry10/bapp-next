@@ -112,9 +112,11 @@ const loginUser = async (req, res) => {
     }
 };
 
-const cerrarSesion = (req, res) => {
-    req.logout();
-    return res.redirect("/auth/login");
+const cerrarSesion = (req, res, next) => {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/auth/login');
+    });
 };
 
 module.exports = {
