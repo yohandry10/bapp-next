@@ -10,7 +10,11 @@ const csrf = require("csurf");
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+const path = require('path');
+
+// Carga del archivo swagger.yaml
+const swaggerPath = path.resolve(__dirname, 'swagger.yaml');
+const swaggerDocument = YAML.load(swaggerPath);
 
 const User = require("./models/User");
 require("dotenv").config();
@@ -21,9 +25,10 @@ const app = express();
 // CORS Options
 const corsOptions = {
   credentials: true,
-  origin: process.env.PATHHEROKU || "*",
+  origin: process.env.PATH_RENDER || "https://bapp-next.onrender.com/auth/login",
   methods: ["GET", "POST"],
 };
+
 app.use(cors(corsOptions));
 
 // Session configuration
@@ -60,6 +65,7 @@ passport.deserializeUser(async (user, done) => {
   return done(null, { id: userDB._id, userName: userDB.userName });
 });
 
+// Handlebars setup
 const hbs = create({
   extname: ".hbs",
   partialsDir: ["views/components"],

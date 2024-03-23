@@ -119,6 +119,7 @@ const cerrarSesion = (req, res, next) => {
     });
 };
 
+
 module.exports = {
     loginForm,
     registerForm,
