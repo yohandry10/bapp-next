@@ -1,0 +1,22 @@
+# Dependencias
+node_modules/
+
+# Archivos de entorno
+.env
+
+# Logs
+*.log
+
+# Sistema de archivos de macOS
+.DS_Store
+
+# Directorios de construcción y distribución
+dist/
+build/
+
+# Cache
+.cache/
+
+# Cobertura
+coverage/
+.vercel
