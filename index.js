@@ -12,9 +12,9 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
 const path = require('path');
 
-// Carga del archivo swagger.yaml
 const swaggerPath = path.resolve(__dirname, 'swagger.yaml');
 const swaggerDocument = YAML.load(swaggerPath);
+
 
 const User = require("./models/User");
 require("dotenv").config();
@@ -23,9 +23,10 @@ const uri = process.env.URI;
 const app = express();
 
 // CORS Options
+// CORS Options
 const corsOptions = {
   credentials: true,
-  origin: process.env.PATH_RENDER || "https://bapp-next.onrender.com/auth/login",
+  origin: "http://localhost:3000", // Reemplaza con la URL real del frontend en desarrollo
   methods: ["GET", "POST"],
 };
 
